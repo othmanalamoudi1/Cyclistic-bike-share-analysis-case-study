@@ -239,39 +239,54 @@ Final csv file size was around 690 MB, still big, but better that previous one.
 
 # Analyze
 
-## Descriptive analysis on time_diff ( all figures in minutes)
+## Descriptive Analysis on Time_diff ( All Figures in Minutes)
 
 ```{r}
 mean (bikeshare2021_cleaned_v2$time_diff) # straight average (total ride length / rides)
 ```
+The average of the ride time is 19.24025 mins
+
 ```{r}
 median(bikeshare2021_cleaned_v2$time_diff) # midpoint number in the ascending array of ride lengths 
 ```
+The midpoint number ib the ascending array of ride lengths is 12.38333 mins
 
 ```{r}
 max(bikeshare2021_cleaned_v2$time_diff) # longest ride
 ```
+The longest ride is  1424.7 mins
+
 ```{r}
 min(bikeshare2021_cleaned_v2$time_diff) #shortest ride
 ```
-## Compare members and casual users  [done]
+The shortest ride is zero 
+
+## Compare Members and Casual Users
 ```{r}
 aggregate(bikeshare2021_cleaned_v2$time_diff ~ bikeshare2021_cleaned_v2$member_casual, FUN = mean)
 
 ```
+The average of the ride time for casual rider is 25.84303 mins
+The average of the ride time for member rider is 13.45690 mins
+
+
+
 
 ```{r}
 aggregate(bikeshare2021_cleaned_v2$time_diff ~ bikeshare2021_cleaned_v2$member_casual, FUN = max)
 
 ```
+The longest ride for casual rider is 1424.7 mins
+The longest ride for member rider is 1248.9 mins
 
 ```{r}
 aggregate(bikeshare2021_cleaned_v2$time_diff ~ bikeshare2021_cleaned_v2$member_casual, FUN = min)
 
 ```
+The shortest ride for casual rider is 0 mins
+The shortest ride for member rider is 0 mins
 
-
-## Visual the average ride time by each month for members vs caual riders [done]
+## Visual the Average Ride Time by Each Month for Members vs Caual Riders 
 
 ```{r}
 bikeshare2021_cleaned_v2 %>% group_by(month,member_casual) %>% 
@@ -279,9 +294,10 @@ bikeshare2021_cleaned_v2 %>% group_by(month,member_casual) %>%
   ggplot(aes(x = month, y = average_of_ride_time, fill = member_casual)) +
   geom_col(position = 'dodge') +labs(x = "month", y = "Average Duration (min)", fill = "Member/Casual", title = "Average Riding Duration by Month: Members vs. Casual Riders")
 ```
+![Screen Shot 2022-02-07 at 3 08 05 PM](https://user-images.githubusercontent.com/52235733/152887506-5a144111-7392-4441-a030-5fc6cde1a95e.png)
 
 
-## Visual the average ride time by each day for memebrs vs cauals riders [done]
+## Visual the Average Ride Time by Each Day for Memebrs vs Casuals Riders
 
 ```{r}
 bikeshare2021_cleaned_v2 %>% group_by(dayof_week,member_casual) %>% 
@@ -291,9 +307,10 @@ bikeshare2021_cleaned_v2 %>% group_by(dayof_week,member_casual) %>%
   
 ```
 
+![Screen Shot 2022-02-07 at 3 09 32 PM](https://user-images.githubusercontent.com/52235733/152887621-d47064d9-7254-433e-852e-b9b98550a274.png)
 
 
-## visual the Average number of rides by month: member vs. Casual riders
+## Visual the Average Number of Rides by Month: Member vs. Casual Riders
 
 ```{r}
 bikeshare2021_cleaned_v2 %>% 
@@ -302,7 +319,9 @@ bikeshare2021_cleaned_v2 %>%
   ggplot(aes(x= month, y = number_of_rides, fill = member_casual)) + geom_col(position = 'dodge') + scale_y_continuous(labels = scales::comma) + labs(x = "Month", y = "number of Rides", fill = "member/Casual", title = "Average number of Ride by Month: members vs. Casual Riders")
 ```
 
-## Visual the Average Number of Rides by Day: Members vs. Casual Riders[done] 
+![Screen Shot 2022-02-07 at 3 10 27 PM](https://user-images.githubusercontent.com/52235733/152887724-1d0ab6bb-0807-4389-81e3-8c65095ae32c.png)
+
+## Visual the Average Number of Rides by Day: Members vs. Casual Riders 
 
 ```{r}
 bikeshare2021_cleaned_v2 %>% group_by(dayof_week,member_casual) %>% 
@@ -312,9 +331,10 @@ bikeshare2021_cleaned_v2 %>% group_by(dayof_week,member_casual) %>%
 ```
 
 
+![Screen Shot 2022-02-07 at 3 11 32 PM](https://user-images.githubusercontent.com/52235733/152887844-772c8ee0-2d9f-46cb-bf31-d85196441fcf.png)
 
 
-## Visual for number of rides grouped by day: rider type [done]
+## Visual for Number of Rides Grouped by Day: Rider Type  
 
 ```{r}
 bikeshare2021_cleaned_v2 %>% group_by(dayof_week ,rideable_type) %>% 
@@ -322,9 +342,10 @@ bikeshare2021_cleaned_v2 %>% group_by(dayof_week ,rideable_type) %>%
   ggplot(aes(x = dayof_week, y = number_of_ride, fill = rideable_type)) +
   geom_col(position = 'dodge') + scale_y_continuous(labels = scales::comma) + labs(x= "Day Of Week", y = "Number of Rides", fill = "Bike Type", title = " Average number of Rides by Day: ride type" )
 ```
+  ![Screen Shot 2022-02-07 at 3 12 31 PM](https://user-images.githubusercontent.com/52235733/152887925-86ad34db-6dbc-45b8-b7cc-53eef6658fce.png)
+
   
-  
-## Visualfor Top 10 Used Start Stations [done] 
+## Visualfor Top 10 Used Start Stations 
 
 ```{r}
 #replacing empty rows with NA
@@ -342,8 +363,9 @@ ggplot(data = top_10_start_staction_name)+ geom_col(aes(x = reorder(start_statio
   
  
 ```
-```
 
+
+![Screen Shot 2022-02-07 at 3 13 29 PM](https://user-images.githubusercontent.com/52235733/152888007-af6bb74a-0fd4-4e79-a26e-a96a44ac9205.png)
 
 
 # Takeaways:
@@ -354,7 +376,7 @@ I can infer that causal riders are mote likely to use their bike for a longer di
 
 To help convert Causal riders into buying annual membershipts, we have to refer the analysis provided above and keep in them in our mind. The recommendations I would provide to help solve this business-related scenario is shown below 
 
-# Top recommendations marketing strategist: 
+# Top Recommendations Marketing Strategist: 
 
 * Advertising annual memberships prices more in the top 10 most popular stations 
 * Provide a discount on annual membershipts purchase in winter and fall ( the lowest traffic months)
@@ -363,6 +385,6 @@ To help convert Causal riders into buying annual membershipts, we have to refer 
 
 
 
-
-
+header | header | header
+data | data | data
 
